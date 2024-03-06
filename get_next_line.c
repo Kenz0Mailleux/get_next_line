@@ -6,16 +6,25 @@
 /*   By: kenzo <kenzo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 15:15:44 by kenzo             #+#    #+#             */
-/*   Updated: 2024/02/29 17:24:12 by kenzo            ###   ########.fr       */
+/*   Updated: 2024/03/05 15:00:07 by kenzo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
+char	*ft_free(char *buffer, char *buf)
+{
+	char	*temp;
+
+	temp = ft_strjoin(buffer, buf);
+	free(buffer);
+	return (temp);
+}
+
 char	*read_line(int fd, char *stock)
 {
 	char 	*line;
-	int	i;
+	int		i;
 	int 	j;
 
 	i = 1;
@@ -23,11 +32,10 @@ char	*read_line(int fd, char *stock)
 	line = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!line)
 		return (NULL);
-	while (i != 0)
+	while (i > 0)
 	{
-		
 		i = read(fd, line, BUFFER_SIZE);
-		if (i == 0)
+		if (i == -1)
 		{
 			free(line);
 			//printf("end of the file: %s ;\n", stock);
@@ -54,8 +62,8 @@ char *stock_modification(char *stock)
 
 	i = ft_strchr(stock, '\n') + 1;
 	//printf("%i???", i);
-	if (i < 1)
-		return (NULL);
+	if (i < -1)
+		return (stock);
 	len = ft_strlen(stock) - i;
 	next_line = malloc(sizeof(char) * len);
 	if (next_line == NULL)
@@ -65,7 +73,7 @@ char *stock_modification(char *stock)
 	{
 		next_line[j++] = stock[i++];
 	}
-	next_line[j] = 0;
+	next_line[j] = '\0';
 	//printf(next_line);
 	return (next_line);
 }
@@ -79,7 +87,10 @@ char	*get_next_line(int fd)
 
 	i = 0;
 	if (!stock)
+	{
 		stock = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+		stock[BUFFER_SIZE] = '\0';
+	}
 	if (fd < 0 || BUFFER_SIZE <= 0)
 			return (NULL);
 	//	read_line
@@ -91,7 +102,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	}
 	found = ft_strchr(stock, '\n') + 1;
-	if (found == -0)
+	if (found == 0)
 	{
 		found = ft_strchr(stock, '\0');
 	}

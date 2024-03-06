@@ -6,7 +6,7 @@
 /*   By: kenzo <kenzo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 16:24:01 by kenzo             #+#    #+#             */
-/*   Updated: 2024/02/29 17:34:17 by kenzo            ###   ########.fr       */
+/*   Updated: 2024/03/05 14:42:03 by kenzo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,11 @@ char	*ft_strjoin(char *s1, char *s2)
 	int		j;
 
 	i = 0;
+	if (!s1 || !s2)
+		return (NULL);
 	sizetotal = ft_strlen(s1) + ft_strlen(s2);
 	res = malloc(sizeof(char) * (sizetotal + 1));
-	if (!res || !s1 || !s2)
+	if (!res)
 		return (NULL);
 	while (s1[i] != 0)
 	{
@@ -64,7 +66,7 @@ int	ft_strlen(char *str)
 	len = 0;
 	if (!str)
 		return (0);
-	while (str[len] != 0)
+	while (str[len] != '\0')
 		len++;
 	return (len);
 }
@@ -87,20 +89,4 @@ char	*ft_strncpy(char *dest, char *src, int n)
 	dest[i] = '\0';
 	//printf("this is the dest : %s ??\n", dest);
 	return (dest);
-}
-
-
-void pustr(char *str)
-{
-    if (str != NULL) {
-        size_t len = 0;
-        // Calculate the length of the string
-        while (str[len] != '\0') {
-            len++;
-        }
-        // Write the string to stdout
-        write(1, str, len);
-        // Write newline character
-        write(1, "\n", 1);
-    }
 }
