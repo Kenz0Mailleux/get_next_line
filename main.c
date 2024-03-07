@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kenzo <kenzo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: kmailleu <kmailleu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 16:20:35 by kenzo             #+#    #+#             */
-/*   Updated: 2024/02/29 17:38:19 by kenzo            ###   ########.fr       */
+/*   Updated: 2024/03/07 17:07:00 by kmailleu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,16 @@ int main(int argc, char **argv)
         printf("Failed to open the file.\n");
         return (1);
     }
-	int i = 1;
-	line = get_next_line(fd);
-    while (ft_strlen(line) > 0)
+    while (1)
     {
-		printf("%s", line);
 		line = get_next_line(fd);
+        if (!line)
+            return (0);
+        if (strlen(line) == 0)
+            break;
+        if (line[0] == '\021')
+            printf("BAKA");
+        printf("%s", line);
     }
     close(fd);
     return (0);

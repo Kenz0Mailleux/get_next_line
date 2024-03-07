@@ -3,114 +3,100 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kenzo <kenzo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: kmailleu <kmailleu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 15:15:44 by kenzo             #+#    #+#             */
-/*   Updated: 2024/03/05 15:00:07 by kenzo            ###   ########.fr       */
+/*   Updated: 2024/03/07 17:38:28 by kmailleu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_free(char *buffer, char *buf)
-{
-	char	*temp;
-
-	temp = ft_strjoin(buffer, buf);
-	free(buffer);
-	return (temp);
-}
-
 char	*read_line(int fd, char *stock)
 {
-	char 	*line;
+	char	*line;
 	int		i;
-	int 	j;
+	int		j;
 
 	i = 1;
 	j = 0;
 	line = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!line)
-		return (NULL);
-	while (i > 0)
+		return (free(stock), NULL);
+	while (1)
 	{
 		i = read(fd, line, BUFFER_SIZE);
 		if (i == -1)
-		{
-			free(line);
-			//printf("end of the file: %s ;\n", stock);
-			return(stock); //free??
-		}
+			return (NULL);
+		else if (i == 0)
+			return (stock);
 		line[i] = '\0';
 		stock = ft_strjoin(stock, line);
+		if (stock == NULL)
+			return (NULL);
 		if (ft_strchr(stock, '\n') > -1)
-		{
-			free(line);
-			return(stock);
-		}
+			return (free(line), stock);
 	}
-	free(line);
-	return (stock);
+	return (free(stock), free(line), stock);
 }
 
-char *stock_modification(char *stock)
+char	*stock_modification(char *stock)
 {
-	char *next_line;
-	int i;
-	int j;
-	int len;
+	char	*next_line;
+	int		i;
+	int		j;
+	int		len;
 
-	i = ft_strchr(stock, '\n') + 1;
-	//printf("%i???", i);
-	if (i < -1)
-		return (stock);
+	next_line = NULL;
+	i = ft_strchr(stock, '\n');
+	if (i == -1)
+		i = ft_strchr(stock, '\0');
+	i++;
 	len = ft_strlen(stock) - i;
-	next_line = malloc(sizeof(char) * len);
+	next_line = malloc(sizeof(char) * (len + 1));
 	if (next_line == NULL)
-		return (NULL);	
+		return (free(stock), NULL);
 	j = 0;
 	while (j < len)
-	{
 		next_line[j++] = stock[i++];
-	}
 	next_line[j] = '\0';
-	//printf(next_line);
-	return (next_line);
+	return (free(stock), next_line);
 }
 
 char	*get_next_line(int fd)
 {
 	static char	*stock;
-	char *line;
-	int i;
-	int found;
+	char		*line;
+	int			i;
+	int			found;
 
+	line = NULL;
+	
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
 	i = 0;
 	if (!stock)
 	{
 		stock = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+		if (stock == NULL)
+			return(NULL);
 		stock[BUFFER_SIZE] = '\0';
-	}
-	if (fd < 0 || BUFFER_SIZE <= 0)
-			return (NULL);
-	//	read_line
-	//printf("This is the stock : %s ;\n", stock);
+	}	
 	stock = read_line(fd, stock);
-	if (!stock)
-	{
-		printf("This is the end : %s ;\n", stock);
+	//printf("le stock ; %s", stock);
+	if (stock == NULL)
 		return (NULL);
-	}
-	found = ft_strchr(stock, '\n') + 1;
-	if (found == 0)
-	{
+	found = ft_strchr(stock, '\n');
+	if (found == -1)
 		found = ft_strchr(stock, '\0');
-	}
-	//printf("%i???", found);
-	//printf("%i", found);
+	found++;
 	line = ft_strncpy(line, stock, found);
-	//printf("This is the line : %s ;", line);
+	if (line == NULL)
+		return (free(line), NULL);
+	if (ft_strlen(line) == 0)
+		return (free(line), NULL);
 	stock = stock_modification(stock);
-	//printf("This is the stock : %s ;\n", stock);
+	if (stock == NULL)
+		return (free(stock), free(line), NULL);
 	return (line);
 }
