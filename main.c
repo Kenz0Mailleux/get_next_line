@@ -6,7 +6,7 @@
 /*   By: kmailleu <kmailleu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 16:20:35 by kenzo             #+#    #+#             */
-/*   Updated: 2024/03/07 17:07:00 by kmailleu         ###   ########.fr       */
+/*   Updated: 2024/03/11 18:22:35 by kmailleu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,7 @@ int main(int argc, char **argv)
             return (0);
         if (strlen(line) == 0)
             break;
-        if (line[0] == '\021')
-            printf("BAKA");
-        printf("%s", line);
+        //printf("%s.", line);
     }
     close(fd);
     return (0);

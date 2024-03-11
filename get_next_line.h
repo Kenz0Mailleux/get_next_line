@@ -6,7 +6,7 @@
 /*   By: kmailleu <kmailleu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:36:16 by kenzo             #+#    #+#             */
-/*   Updated: 2024/03/07 15:57:16 by kmailleu         ###   ########.fr       */
+/*   Updated: 2024/03/11 16:55:27 by kmailleu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 char	*get_next_line(int fd);
 char	*ft_strjoin(char *s1, char *s2);
-int		ft_strchr(char *string, int searchedChar);
+int		ft_strchr(char *string, int c, int d);
 int		ft_strlen(char *str);
 char	*ft_strncpy(char *dest, char *src, int n);
 void	ft_free(void **ptr);
