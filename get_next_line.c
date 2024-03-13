@@ -19,10 +19,8 @@ char	*read_line(int fd, char *stock)
 	char	*line_read;
 	char	*line;
 	int		i;
-	int		j;
 
 	i = 1;
-	j = 0;
 	line = NULL;
 	line_read = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!line_read)
@@ -50,32 +48,11 @@ char	*read_line(int fd, char *stock)
 	return (free(line_read), line);
 }
 
-// char	*stock_modification(char *stock)
-// {
-// 	char	*next_line;
-// 	int		i;
-// 	int		j;
-// 	int		len;
-
-// 	next_line = NULL;
-// 	i = ft_strchr(stock, '\n', '\0');
-// 	i++;
-// 	len = ft_strlen(stock) - i;
-// 	next_line = malloc(sizeof(char) * (len + 1));
-// 	if (next_line == NULL)
-// 		return (free(stock), NULL);
-// 	j = 0;
-// 	while (j < len)
-// 		next_line[j++] = stock[i++];
-// 	next_line[j] = '\0';
-// 	return (free(stock), next_line);
-// }
-
 void modify_stock(char *stock, char *line, int i)
 {
     int found = 0;
 	//printf("%i", i);
-    while (found < BUFFER_SIZE && line[i] != '\0')
+    while (line[i] != '\0')
 	{
         stock[found++] = line[i++];
     }
@@ -102,6 +79,8 @@ char	*get_next_line(int fd)
 		return (free(line), NULL);
 	found += 1;
 	modify_stock(stock, line, found);
+	if (ft_strlen(line) == 0)
+		return (free(line), NULL);
 	line[found] = '\0';
 	return (line);
 }

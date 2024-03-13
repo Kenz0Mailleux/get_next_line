@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmailleu <kmailleu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kenzo <kenzo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 16:24:01 by kenzo             #+#    #+#             */
-/*   Updated: 2024/03/11 18:01:19 by kmailleu         ###   ########.fr       */
+/*   Updated: 2024/03/12 19:05:23 by kenzo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	i = 0;
 	if (!s1 || !s2)
 		return (NULL);
+	
 	sizetotal = ft_strlen(s1) + ft_strlen(s2);
 	res = malloc(sizeof(char) * (sizetotal + 1));
 	if (!res)

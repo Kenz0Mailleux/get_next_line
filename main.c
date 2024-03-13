@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kmailleu <kmailleu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kenzo <kenzo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 16:20:35 by kenzo             #+#    #+#             */
-/*   Updated: 2024/03/11 18:22:35 by kmailleu         ###   ########.fr       */
+/*   Updated: 2024/03/13 13:25:39 by kenzo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int main(int argc, char **argv)
             return (0);
         if (strlen(line) == 0)
             break;
-        //printf("%s.", line);
+        printf("%s.", line);
     }
     close(fd);
     return (0);
