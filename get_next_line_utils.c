@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kenzo <kenzo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: kmailleu <kmailleu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 16:24:01 by kenzo             #+#    #+#             */
-/*   Updated: 2024/03/12 19:05:23 by kenzo            ###   ########.fr       */
+/*   Updated: 2024/03/18 16:43:02 by kmailleu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,11 @@ char	*ft_strjoin(char *s1, char *s2)
 
 	i = 0;
 	if (!s1 || !s2)
-		return (NULL);
-	
+		return (free(s1), NULL);
 	sizetotal = ft_strlen(s1) + ft_strlen(s2);
 	res = malloc(sizeof(char) * (sizetotal + 1));
 	if (!res)
-		return (NULL);
+		return (free(s1), NULL);
 	while (s1[i] != 0)
 	{
 		res[i] = s1[i];
@@ -36,8 +35,24 @@ char	*ft_strjoin(char *s1, char *s2)
 	while (s2[j] != 0)
 		res[i++] = s2[j++];
 	res[sizetotal] = '\0';
-	free(s1);
-	return (res);
+	
+	return (free(s1), res);
+}
+
+void	*ft_memset(void *ptr, int value, size_t len)
+{
+	size_t	i;
+	char	*str;
+
+	i = 0;
+	str = (char *)ptr;
+	while (i < len)
+	{
+		*str = value;
+		str++;
+		i++;
+	}
+	return (ptr);
 }
 
 //renvoit l'indice de la premiere apparition de searchedChar
@@ -54,7 +69,6 @@ int	ft_strchr(char *s, int c, int d)
 	}
 	if ((char)c == s[len])
 		return (len);
-
 	len = 0;
 	while (s[len] != 0)
 	{

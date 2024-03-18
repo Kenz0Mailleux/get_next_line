@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kenzo <kenzo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: kmailleu <kmailleu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 16:36:16 by kenzo             #+#    #+#             */
-/*   Updated: 2024/03/13 14:03:52 by kenzo            ###   ########.fr       */
+/*   Updated: 2024/03/18 16:21:51 by kmailleu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ char	*ft_strjoin(char *s1, char *s2);
 int		ft_strchr(char *string, int c, int d);
 int		ft_strlen(char *str);
 char	*ft_strncpy(char *dest, char *src, int n);
-void	ft_free(void **ptr);
-void	pustr(char *str);
+void	*ft_memset(void *ptr, int value, size_t len);
 
 #endif
