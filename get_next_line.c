@@ -74,13 +74,13 @@ char	*get_next_line(int fd)
 	line = read_line(fd, stock);
 	if (line == NULL)
 		return (free(line), NULL);
+	if (ft_strlen(line) == 0)
+		return (free(line), NULL);
 	found = ft_strchr(line, '\n', '\0');
 	if (found == -1)
 		return (free(line), NULL);
 	found += 1;
 	modify_stock(stock, line, found);
-	if (ft_strlen(line) == 0)
-		return (free(line), NULL);
 	line[found] = '\0';
 	return (line);
 }
